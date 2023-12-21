@@ -171,6 +171,9 @@ even if some might come out looking the same on the screen."
                t
                nil))
 
+(defconst ansi-color-regexp "\033\\[\\([0-9;]*m\\)"
+  "Regexp that matches SGR control sequences.")
+
 (defun ansi-format-encode (beg end buffer)
   "Sorry, cannot encode `ansi-colors' format.
 There's no support for re-encoding to save a file in
@@ -398,6 +401,7 @@ indeed be ordinary text."
 
       (when (let ((case-fold-search t))
               (or (string-match "\\.txt\\'"  filename)
+                  (string-match "\\.log\\'"  filename)
                   (string-match "/README\\'" filename)))
 
         (if (save-excursion
